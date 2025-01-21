@@ -1,3 +1,4 @@
+import FlashSales from "../components/home/flash-sales";
 import Services from "../components/home/services";
 
 const HomePage = () => {
@@ -5,7 +6,7 @@ const HomePage = () => {
     <div>
       {/* header */}
       {/* hero */}
-      {/* flash sales */}
+      <FlashSales />
       {/* Browse by Category */}
       {/* Best selling products */}
       {/* call to action */}
