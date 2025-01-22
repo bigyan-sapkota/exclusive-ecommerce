@@ -1,10 +1,12 @@
+import Footer from "../components/footer";
+import Header from "../components/header";
 import FlashSales from "../components/home/flash-sales";
 import Services from "../components/home/services";
 
 const HomePage = () => {
   return (
     <div>
-      {/* header */}
+      <Header />
       {/* hero */}
       <FlashSales />
       {/* Browse by Category */}
@@ -13,7 +15,7 @@ const HomePage = () => {
       {/* explore our products */}
       {/* new arrival */}
       <Services />
-      {/* footer */}
+      <Footer />
     </div>
   );
 };

@@ -36,3 +36,13 @@
     --radius: 0.5rem;
   }
 }
+
+@layer utilities {
+  .max-width {
+    @apply max-w-7xl mx-auto;
+  }
+
+  .padding-x {
+    @apply px-5 sm:px-7 md:px-14 lg:px-20;
+  }
+}
