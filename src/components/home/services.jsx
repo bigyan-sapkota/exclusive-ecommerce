@@ -25,20 +25,20 @@ const serviceDetails = [
 
 const Services = () => {
   return (
-    <section className="flex justify-center gap-20">
+    <section className="padding-x max-width flex flex-col items-center justify-center gap-20 lg:flex-row">
       {serviceDetails.map((item, i) => {
         return (
           <div key={i}>
             {/* icon */}
-            <div className="flex justify-center w-60">
-              <div className="bg-[#c0c1c1] w-20 h-20 flex items-center justify-center rounded-full">
-                <div className="text-white bg-black h-14 rounded-full w-14 flex items-center justify-center text-4xl">
+            <div className="flex w-60 justify-center">
+              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#c0c1c1]">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-black text-4xl text-white">
                   {item.icon}
                 </div>
               </div>
             </div>
             {/* title */}
-            <h2 className="text-black text-xl font-semibold leading-7 mt-2">
+            <h2 className="mt-2 text-xl font-semibold leading-7 text-black">
               {item.title}
             </h2>
             {/* description */}

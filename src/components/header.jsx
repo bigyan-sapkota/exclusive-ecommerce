@@ -22,12 +22,7 @@ const navigationItems = [
 ];
 
 const Header = () => {
-  const [isMenuOpen, setMenuOpen] = useState(false);
-
-  const menuClickHandler = () => {
-    setMenuOpen(!isMenuOpen);
-  };
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <header className="relative">
       {/* top header */}
@@ -43,10 +38,10 @@ const Header = () => {
         <h2>Exclusive</h2>
 
         {/* navigation items for lg*/}
-        <div className="lg:flex items-center gap-12 hidden">
+        <div className="hidden lg:flex items-center gap-12">
           {navigationItems.map((item, i) => (
             <Link to={item.routeTo} key={i} className="font-semibold">
-              {item.routeTo}
+              {item.text}
             </Link>
           ))}
         </div>
@@ -60,25 +55,24 @@ const Header = () => {
 
           {/* cart */}
           <IoCartOutline size={24} />
-        </div>
 
-        {/* navigation toggle for non lg */}
-        <button
-          className="bg-dark text-white rounded-full p-1.5 lg:hidden"
-          onClick={menuClickHandler}
-        >
-          {isMenuOpen ? <RxCross2 size={24} /> : <IoMenu size={24} />}
-        </button>
+          <button
+            className="bg-dark text-light rounded-full p-1.5 lg:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <RxCross2 size={24} /> : <IoMenu size={24} />}
+          </button>
+        </div>
       </nav>
 
       {/* navigation items for non lg */}
       {isMenuOpen && (
-        <div className="fixed top-12 w-full bottom-0 left-0 bg-primary text-light z-50 h-fit py-10 space-y-4">
+        <div className="absolute top-12 w-full bottom-0 left-0 bg-primary text-light z-50 h-fit py-10 space-y-4">
           {navigationItems.map((item, i) => (
             <Link
               key={i}
               to={item.routeTo}
-              className="font-semibold text-center block"
+              className="font-semibold block text-center"
             >
               {item.text}
             </Link>

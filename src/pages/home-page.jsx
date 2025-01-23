@@ -8,13 +8,18 @@ const HomePage = () => {
     <div>
       <Header />
       {/* hero */}
-      <FlashSales />
+      <div className="margin-y">
+        <FlashSales />
+      </div>
       {/* Browse by Category */}
       {/* Best selling products */}
       {/* call to action */}
       {/* explore our products */}
       {/* new arrival */}
-      <Services />
+      <div className="margin-y">
+        <Services />
+      </div>
+
       <Footer />
     </div>
   );
