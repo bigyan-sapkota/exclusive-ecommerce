@@ -39,14 +39,22 @@
 
 @layer utilities {
   .max-width {
-    @apply max-w-7xl mx-auto;
+    @apply mx-auto max-w-7xl;
   }
 
   .padding-x {
     @apply px-5 sm:px-7 md:px-14 lg:px-20;
   }
 
+  .padding-r {
+    @apply pr-5 sm:pr-7 md:pr-14 lg:pr-20;
+  }
+
   .margin-y {
     @apply my-10 lg:my-20;
+  }
+
+  .custom-transition {
+    @apply transition-all duration-300;
   }
 }

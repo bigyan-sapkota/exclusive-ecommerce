@@ -1,7 +1,8 @@
-const products = [
+export const products = [
   {
     id: 1,
     name: "Ergonomic Mouse Pad",
+    price: 500,
     rating: 5,
     numberOfBuyers: 256,
     discountRate: 15,
@@ -16,6 +17,7 @@ const products = [
   {
     id: 2,
     name: "Sporty Sneakers",
+    price: 4000,
     rating: 4,
     numberOfBuyers: 500,
     discountRate: 20,
@@ -30,6 +32,7 @@ const products = [
   {
     id: 3,
     name: "Wireless Headphones",
+    price: 3500,
     rating: 3,
     numberOfBuyers: 320,
     discountRate: 10,
@@ -44,6 +47,7 @@ const products = [
   {
     id: 4,
     name: "Mechanical Keyboard",
+    price: 8000,
     rating: 4,
     numberOfBuyers: 450,
     discountRate: 25,
@@ -58,6 +62,7 @@ const products = [
   {
     id: 5,
     name: "Classic Cotton T-Shirt",
+    price: 1000,
     rating: 5,
     numberOfBuyers: 300,
     discountRate: 30,
@@ -71,6 +76,7 @@ const products = [
   {
     id: 6,
     name: "Mountain Bicycle",
+    price: 20000,
     rating: 3,
     numberOfBuyers: 150,
     discountRate: 18,
@@ -84,6 +90,7 @@ const products = [
   {
     id: 7,
     name: "Wireless Gaming Mouse",
+    price: 2500,
     rating: 4,
     numberOfBuyers: 220,
     discountRate: 15,
@@ -98,6 +105,7 @@ const products = [
   {
     id: 8,
     name: "Elegant Bowl Set",
+    price: 2500,
     rating: 5,
     numberOfBuyers: 180,
     discountRate: 12,

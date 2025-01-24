@@ -6,7 +6,6 @@ import Services from "../components/home/services";
 const HomePage = () => {
   return (
     <div>
-      <Header />
       {/* hero */}
       <div className="margin-y">
         <FlashSales />
@@ -19,8 +18,6 @@ const HomePage = () => {
       <div className="margin-y">
         <Services />
       </div>
-
-      <Footer />
     </div>
   );
 };
