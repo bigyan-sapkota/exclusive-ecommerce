@@ -14,8 +14,8 @@ const navigationItems = [
   },
   {
     id: 2,
-    text: "About Us",
-    routeTo: "/about",
+    text: "Products",
+    routeTo: "/products",
   },
   { id: 3, text: "Contact", routeTo: "/contact" },
   { id: 4, text: "Sign up", routeTo: "/sign-up" },
@@ -26,19 +26,19 @@ const Header = () => {
   return (
     <header className="relative">
       {/* top header */}
-      <div className="bg-dark py-2 hidden lg:block">
-        <p className="text-light text-center">
+      <div className="hidden bg-dark py-2 lg:block">
+        <p className="text-center text-light">
           Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
         </p>
       </div>
 
       {/* bottom header */}
-      <nav className="max-width padding-x flex items-center justify-between py-2 lg:pt-3 lg:pb-4 border-b">
+      <nav className="max-width padding-x flex items-center justify-between border-b py-2 lg:pb-4 lg:pt-3">
         {/* logo */}
         <h2>Exclusive</h2>
 
         {/* navigation items for lg*/}
-        <div className="hidden lg:flex items-center gap-12">
+        <div className="hidden items-center gap-12 lg:flex">
           {navigationItems.map((item, i) => (
             <Link to={item.routeTo} key={i} className="font-semibold">
               {item.text}
@@ -57,7 +57,7 @@ const Header = () => {
           <IoCartOutline size={24} />
 
           <button
-            className="bg-dark text-light rounded-full p-1.5 lg:hidden"
+            className="rounded-full bg-dark p-1.5 text-light lg:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <RxCross2 size={24} /> : <IoMenu size={24} />}
@@ -67,12 +67,12 @@ const Header = () => {
 
       {/* navigation items for non lg */}
       {isMenuOpen && (
-        <div className="absolute top-12 w-full bottom-0 left-0 bg-primary text-light z-50 h-fit py-10 space-y-4">
+        <div className="absolute bottom-0 left-0 top-12 z-50 h-fit w-full space-y-4 bg-primary py-10 text-light">
           {navigationItems.map((item, i) => (
             <Link
               key={i}
               to={item.routeTo}
-              className="font-semibold block text-center"
+              className="block text-center font-semibold"
             >
               {item.text}
             </Link>
@@ -87,11 +87,11 @@ export default Header;
 
 const SearchBar = () => {
   return (
-    <div className="bg-secondary flex items-center gap-8 py-2 pl-5 pr-2 rounded">
+    <div className="flex items-center gap-8 rounded bg-secondary py-2 pl-5 pr-2">
       <input
         type="text"
         placeholder="Search products..."
-        className="bg-transparent border-0 outline-none"
+        className="border-0 bg-transparent outline-none"
       />
       <IoIosSearch />
     </div>
