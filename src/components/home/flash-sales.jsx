@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { products } from "../../libs/consts";
 import ProductCard from "../product-card";
+import BoxText from "../box-text";
 
 const endTime = new Date("2025-02-29T15:59:59").getTime();
 
@@ -24,11 +25,7 @@ const FlashSales = () => {
     <section className="max-width padding-x">
       <div>
         {/* box and text */}
-        <div className="flex items-center gap-3">
-          {/* red box */}
-          <div className="h-10 w-5 rounded bg-primary"></div>
-          <p className="font-semibold text-primary">Today&apos;s</p>
-        </div>
+        <BoxText text="Today's new" />
 
         <div className="mt-4 flex flex-col gap-2 lg:mt-2 lg:flex-row lg:items-end lg:gap-8">
           <h2>Flash Sales</h2>

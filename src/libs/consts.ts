@@ -11,14 +11,17 @@ export const products = [
     isNewProduct: true,
     image: "mouse-pad.jpg",
     variants: [
-      "https://m.media-amazon.com/images/I/71z2DcD8DGL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61L4R92hAqL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71fNy4l6Q-L._AC_SL1500_.jpg",
+      "https://i.pinimg.com/736x/bc/71/32/bc7132112b13419bdfc1de4772dda091.jpg",
+      "https://i.pinimg.com/736x/d0/36/9e/d0369e15a43d7ef8381fbfca2aaf4fee.jpg",
+      "https://i.pinimg.com/736x/d8/74/f1/d874f10791a5c332bf99796d9adc34f5.jpg",
     ],
     description:
       "Experience unparalleled comfort and precision with our ergonomic mouse pad...",
     isOnFlashSale: true,
     flashSaleUpTo: "2025-01-31T23:59:59",
+    stock: 5,
+    category: "Electronics",
+    categoryId: 1,
   },
   {
     id: 2,
@@ -32,14 +35,17 @@ export const products = [
     isNewProduct: false,
     image: "shoe.jpg",
     variants: [
-      "https://m.media-amazon.com/images/I/71Y0cnkp3rL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71YK20XjSNL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71n8-fpWq6L._AC_SL1500_.jpg",
+      "https://i.pinimg.com/736x/2a/9a/53/2a9a530cc03d8dd849ede2f545d0aede.jpg",
+      "https://i.pinimg.com/736x/9e/04/68/9e04689d9fb3444a05d9cd7c9e7dc8f8.jpg",
+      "hhttps://i.pinimg.com/736x/9c/5b/57/9c5b57e85040cc03d1cd5ac95245d258.jpg",
     ],
     description:
       "Step into style and comfort with our trendy sporty sneakers...",
     isOnFlashSale: false,
     flashSaleUpTo: "2025-01-31T23:59:59",
+    stock: 32,
+    category: "Wearing",
+    categoryId: 2,
   },
   {
     id: 3,
@@ -53,14 +59,17 @@ export const products = [
     isNewProduct: true,
     image: "headphone.jpg",
     variants: [
-      "https://m.media-amazon.com/images/I/61djv8PhV8L._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71jG+e7roXL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71kLLFxUshL._AC_SL1500_.jpg",
+      "https://i.pinimg.com/736x/67/2a/2e/672a2eca2b68c1ab9d960e8a864e3e17.jpg",
+      "https://i.pinimg.com/736x/a8/33/7f/a8337f50ffaf22a9f4c350ed63362ec8.jpg",
+      "https://i.pinimg.com/736x/e0/b8/fa/e0b8faf322f5f2c8f118d608aa34421d.jpg",
     ],
     description:
       "Immerse yourself in high-definition sound with our premium wireless headphones...",
     isOnFlashSale: true,
     flashSaleUpTo: "2025-01-31T23:59:59",
+    stock: 5,
+    category: "Electronics",
+    categoryId: 1,
   },
   {
     id: 4,
@@ -74,14 +83,17 @@ export const products = [
     isNewProduct: false,
     image: "keyboard.png",
     variants: [
-      "https://m.media-amazon.com/images/I/71Vmtq1pXkL._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/61G5pH4uB8L._AC_SL1500_.jpg",
-      "https://m.media-amazon.com/images/I/71J2CJinlFL._AC_SL1500_.jpg",
+      "https://i.pinimg.com/736x/f9/54/e8/f954e8af2edf37510bbdfd8ecce70732.jpg",
+      "https://i.pinimg.com/736x/16/1b/a7/161ba756c0f45c1029b96a3c0a5b1975.jpg",
+      "https://i.pinimg.com/736x/76/b6/c1/76b6c13bac37e26947e9062a5e5f379d.jpg",
     ],
     description:
       "Experience precision typing like never before with our mechanical keyboard...",
     isOnFlashSale: false,
     flashSaleUpTo: "2025-01-31T23:59:59",
+    stock: 2,
+    category: "Electronics",
+    categoryId: 1,
   },
   {
     id: 5,
@@ -102,6 +114,9 @@ export const products = [
     description: "Upgrade your wardrobe with our classic cotton t-shirt...",
     isOnFlashSale: true,
     flashSaleUpTo: "2025-01-31T23:59:59",
+    stock: 3,
+    category: "Wearing",
+    categoryId: 2,
   },
   {
     id: 6,
@@ -122,6 +137,9 @@ export const products = [
     description: "Conquer trails and city streets with our mountain bicycle...",
     isOnFlashSale: false,
     flashSaleUpTo: "2025-01-31T23:59:59",
+    stock: 0,
+    category: "Wearing",
+    categoryId: 2,
   },
   {
     id: 7,
@@ -143,6 +161,9 @@ export const products = [
       "Dominate your game with precision and speed using our wireless gaming mouse...",
     isOnFlashSale: true,
     flashSaleUpTo: "2025-01-31T23:59:59",
+    stock: 50,
+    category: "Electronics",
+    categoryId: 1,
   },
   {
     id: 8,
@@ -163,5 +184,13 @@ export const products = [
     description: "Elevate your dining experience with our elegant bowl set...",
     isOnFlashSale: false,
     flashSaleUpTo: "2025-01-31T23:59:59",
+    stock: 3,
+    category: "Wearing",
+    categoryId: 2,
   },
+];
+
+export const productsCategory = [
+  { categoryId: 1, category: "Electronics" },
+  { categoryId: 2, category: "Wearing" },
 ];

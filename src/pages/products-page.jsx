@@ -13,3 +13,5 @@ const ProductsPage = () => {
 };
 
 export default ProductsPage;
+
+// components vitra product card xa, flash sales ma tei card haldine

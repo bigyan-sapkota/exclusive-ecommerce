@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const ProductCard = ({ product }) => {
   const calculatePriceAfterDiscount = (orgPrice, discountRate) => {
     const priceAfterDiscount = orgPrice - (discountRate / 100) * orgPrice;
@@ -28,11 +30,16 @@ const ProductCard = ({ product }) => {
         )}
 
         <button className="custom-transition absolute bottom-0 left-0 h-0 w-full overflow-hidden bg-dark text-white hover:bg-primary group-hover:h-auto group-hover:py-1.5">
-          Hello Button
+          Add To Cart
         </button>
       </div>
 
-      <p className="mt-2 font-medium">{product.name}</p>
+      <Link
+        to={`/products/${product.slug}`}
+        className="custom-transition mt-2 block font-medium hover:text-primary"
+      >
+        {product.name}
+      </Link>
       {product.discountRate ? (
         <div className="flex gap-2">
           <p className="font-semibold text-primary">
