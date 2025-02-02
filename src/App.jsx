@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import HomePage from "./pages/home-page";
 import Header from "./components/header";
@@ -9,7 +9,7 @@ import SingleProductPage from "./pages/single-product-page";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -18,10 +18,20 @@ const App = () => {
         <Route path="/products/:slug" element={<SingleProductPage />} />
       </Routes>
       <Footer />
-    </BrowserRouter>
+    </Router>
   );
 };
 
 export default App;
 
 //         <Route path="/products/:slug" element={<ProductDetails />} />
+
+{
+  /* <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/sign-up" element={<SignUpPage />} />
+        <Route path="/sign-up" element={<SignUpPage />} />
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/products/:slug" element={<SingleProductPage />} />
+      </Routes> */
+}
