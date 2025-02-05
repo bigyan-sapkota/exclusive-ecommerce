@@ -1,23 +1,22 @@
 import { Link, useParams } from "react-router-dom";
+import { useState } from "react";
 import { products } from "../libs/consts";
 
 import { FaStar } from "react-icons/fa";
 import Button from "../components/button";
 import BoxText from "../components/box-text";
 import ProductCard from "../components/product-card";
+import useCartStore from "../hooks/use-cart-store";
 
 const SingleProductPage = () => {
   const { slug: selectedProductSlug } = useParams();
+  const [quantity, setQuantity] = useState(1);
+  const { cart, addToCart } = useCartStore();
 
-  //   get selected products
+  // Get selected product
   const selectedProduct = products.find(
     (item) => item.slug === selectedProductSlug,
   );
-
-  //   get unselected products with same category
-  const unselectedProductWithSameCategory = products
-    .filter((item) => item.slug !== selectedProductSlug)
-    .filter((item) => item.categoryId === selectedProduct.categoryId);
 
   if (!selectedProduct) {
     return (
@@ -27,11 +26,30 @@ const SingleProductPage = () => {
     );
   }
 
+  // Increase quantity
+  const increaseQuantity = () => {
+    setQuantity((prev) => prev + 1);
+  };
+
+  // Decrease quantity
+  const decreaseQuantity = () => {
+    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+  };
+
+  // Add to cart handler
+  const cartClickHandler = () => {
+    addToCart(selectedProduct, quantity);
+  };
+
+  // Get related products
+  const unselectedProductWithSameCategory = products
+    .filter((item) => item.slug !== selectedProductSlug)
+    .filter((item) => item.categoryId === selectedProduct.categoryId);
+
   return (
     <div className="max-width padding-x min-h-screen py-10">
-      {/* selected product details */}
       <div>
-        {/* bread crumb */}
+        {/* Breadcrumb */}
         <div className="mb-5 flex items-center gap-1">
           <Link
             to="/"
@@ -49,10 +67,10 @@ const SingleProductPage = () => {
           <span className="text-gray-500">/</span>
           <p>{selectedProduct.name}</p>
         </div>
+
         <div className="flex gap-16">
           {/* Images */}
           <div className="flex gap-7">
-            {/* variant images */}
             <div className="space-y-8">
               {selectedProduct.variants.map((item, i) => (
                 <div key={i}>
@@ -64,7 +82,6 @@ const SingleProductPage = () => {
                 </div>
               ))}
             </div>
-            {/* main image */}
             <div>
               <img
                 src={selectedProduct.image}
@@ -74,31 +91,20 @@ const SingleProductPage = () => {
             </div>
           </div>
 
-          {/* description */}
+          {/* Product Details */}
           <div>
             <h4>{selectedProduct.name}</h4>
 
-            {/* rating and stock */}
+            {/* Rating and Stock */}
             <div className="mt-2 flex gap-4">
-              {/* ratings */}
               <div className="flex items-center gap-0.5">
-                {/* number of ratings */}
-                <div className="flex items-center gap-0.5">
-                  {new Array(selectedProduct.rating).fill("").map((_, i) => (
-                    <FaStar key={i} className="text-[#ffad33]" />
-                  ))}
-                </div>
-                {/* number of ratings remained */}
-                <div className="flex items-center gap-0.5">
-                  {new Array(5 - selectedProduct.rating)
-                    .fill("")
-                    .map((_, i) => (
-                      <FaStar key={i} className="text-gray-400" />
-                    ))}
-                </div>
+                {new Array(selectedProduct.rating).fill("").map((_, i) => (
+                  <FaStar key={i} className="text-[#ffad33]" />
+                ))}
+                {new Array(5 - selectedProduct.rating).fill("").map((_, i) => (
+                  <FaStar key={i} className="text-gray-400" />
+                ))}
               </div>
-
-              {/* in stock or not */}
               <p
                 className={`${selectedProduct.stock ? "bg-green-500" : "bg-red-500"} w-fit px-1 py-0.5 text-sm text-white`}
               >
@@ -109,25 +115,37 @@ const SingleProductPage = () => {
             <p className="mt-3 text-xl font-medium">
               Rs. {selectedProduct.price}
             </p>
-
-            {/* description */}
             <p className="mt-3">{selectedProduct.description}</p>
 
-            {/* line */}
             <div className="mt-4 h-0.5 bg-gray-300"></div>
 
-            {/* plus minus and button */}
+            {/* Quantity and Buttons */}
+            <div className="mt-4 flex items-center gap-4">
+              <button
+                onClick={decreaseQuantity}
+                className="size-8 rounded bg-gray-300 text-lg"
+              >
+                -
+              </button>
+              <span className="text-lg font-medium">{quantity}</span>
+              <button
+                onClick={increaseQuantity}
+                className="size-8 rounded bg-gray-300 text-lg"
+              >
+                +
+              </button>
+            </div>
+
             <div className="mt-4">
-              <Button text="Buy Now" />
+              <Button text="Buy Now" buttonClickHandler={cartClickHandler} />
             </div>
           </div>
         </div>
       </div>
 
-      {/* unselected products */}
+      {/* Related Products */}
       <div className="mt-8">
         <BoxText text="Related items" />
-
         <div className="mt-6 grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
           {unselectedProductWithSameCategory.map((item, i) => (
             <ProductCard key={i} product={item} />
@@ -139,13 +157,3 @@ const SingleProductPage = () => {
 };
 
 export default SingleProductPage;
-
-// const product = [
-//     {id:1, slug: "shoes"},
-//     {id:2, slug: "keyboard"}
-//     ]
-
-// const parameter = "shoes"
-
-// const selectedProduct = product.find(item => item.slug === parameter)
-// console.log(selectedProduct)

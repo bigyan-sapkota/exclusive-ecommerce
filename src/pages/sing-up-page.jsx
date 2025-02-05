@@ -22,8 +22,6 @@ const SignUpPage = () => {
     resolver: zodResolver(schema),
   });
 
-  console.log(errors);
-
   const onSubmit = async (data) => {
     try {
       setIsUploading(true);
