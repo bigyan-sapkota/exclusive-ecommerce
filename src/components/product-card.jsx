@@ -1,24 +1,25 @@
 import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
-  const calculatePriceAfterDiscount = (orgPrice, discountRate) => {
-    const priceAfterDiscount = orgPrice - (discountRate / 100) * orgPrice;
-    return priceAfterDiscount;
+  const calculatePriceAfterDiscount = (orgPrice, discount) => {
+    const priceAfterDiscount = orgPrice - (discount / 100) * orgPrice;
+    return Math.floor(priceAfterDiscount);
   };
   return (
     <div>
       <div className="group relative h-60 w-full cursor-pointer">
         {/* thumbnail */}
         <img
-          src={`/products/${product.image}`}
-          alt={product.name}
+          src={product.image}
+          alt={product.title}
+          loading="lazy"
           className="h-full w-full object-cover"
         />
 
         {/* discount */}
-        {product.discountRate && (
+        {product.discount && (
           <div className="absolute left-4 top-4 w-fit rounded bg-primary px-2.5 py-0.5 text-xs font-semibold text-white">
-            -{product.discountRate}%
+            -{product.discount}%
           </div>
         )}
 
@@ -38,13 +39,13 @@ const ProductCard = ({ product }) => {
         to={`/products/${product.slug}`}
         className="custom-transition mt-2 block font-medium hover:text-primary"
       >
-        {product.name}
+        {product.title}
       </Link>
-      {product.discountRate ? (
+      {product.discount ? (
         <div className="flex gap-2">
           <p className="font-semibold text-primary">
             Rs.
-            {calculatePriceAfterDiscount(product.price, product.discountRate)}
+            {calculatePriceAfterDiscount(product.price, product.discount)}
           </p>
           <p className="text-gray-400 line-through">{product.price}</p>
         </div>

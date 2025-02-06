@@ -3,53 +3,28 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import Button from "../components/button";
-import { uploadToImageBB } from "../libs/utils";
-import { RegisterUserSchema } from "../schemas/sign-in-sign-up.schema";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import { useRegister } from "../mutations/use-register";
+import { schema } from "../schemas/sign-in-sign-up.schema";
 
-const SignUpPage = () => {
+const SignInPage = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
-    useState(false);
-  const [isUploading, setIsUploading] = useState(false);
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(RegisterUserSchema),
+    resolver: zodResolver(schema),
   });
-
-  const { mutate } = useRegister();
 
   const onSubmit = async (data) => {
     try {
-      setIsUploading(true);
-      let image = null;
-
-      if (data.profileImage?.length > 0) {
-        image = await uploadToImageBB(data.profileImage[0]);
-      }
-
-      const { profileImage, confirmPassword, phone, ...rest } = data;
-      let submissionData = { ...rest };
-
-      if (image) {
-        submissionData.image = image; // Corrected reassignment
-      }
-
-      mutate(submissionData);
+      console.log(data);
       reset();
     } catch (error) {
       console.error("Error submitting form:", error);
-    } finally {
-      setIsUploading(false);
     }
   };
-
   return (
     <div className="margin-y padding-r flex flex-col items-center justify-center px-5 sm:px-7 md:px-14 lg:flex-row lg:justify-normal lg:gap-32 lg:px-0">
       <div className="hidden w-1/2 lg:block">
@@ -120,48 +95,8 @@ const SignUpPage = () => {
             )}
           </div>
 
-          <div className="relative">
-            <input
-              type={isConfirmPasswordVisible ? "text" : "password"}
-              placeholder="Confirm Password"
-              className="w-full border-0 border-b border-b-gray-500 pb-1 outline-none"
-              {...register("confirmPassword")}
-            />
-            <button
-              type="button"
-              onClick={() =>
-                setIsConfirmPasswordVisible(!isConfirmPasswordVisible)
-              }
-              className="absolute right-2 top-1"
-            >
-              {isConfirmPasswordVisible ? <FaRegEyeSlash /> : <FaRegEye />}
-            </button>
-            {errors.confirmPassword && (
-              <p className="text-sm text-red-500">
-                {errors.confirmPassword.message}
-              </p>
-            )}
-          </div>
-
-          <div>
-            <input
-              type="file"
-              accept="image/*"
-              {...register("profileImage")}
-              className="w-full pb-1 outline-none"
-            />
-            {errors.profileImage && (
-              <p className="text-sm text-red-500">
-                {errors.profileImage.message}
-              </p>
-            )}
-          </div>
-
           <div className="flex items-center justify-between">
-            <Button
-              text={isUploading ? "Signing Up..." : "Sign Up"}
-              type="submit"
-            />
+            <Button text="Log In" type="submit" />
             <p className="text-primary">Forget Password?</p>
           </div>
         </form>
@@ -170,4 +105,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default SignInPage;
