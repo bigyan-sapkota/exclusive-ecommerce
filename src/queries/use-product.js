@@ -2,9 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { backendUrl } from "../libs/consts";
 
+export const productsKey = ["products"];
 export const useProduct = () => {
   return useQuery({
-    queryKey: ["products"],
+    queryKey: productsKey,
     queryFn: fetchProducts,
   });
 };

@@ -8,15 +8,12 @@ import ProductsPage from "./pages/products-page";
 import SignUpPage from "./pages/sing-up-page";
 import SingleProductPage from "./pages/single-product-page";
 
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
+import LoginToProceed from "./pages/login-to-proceed";
 
 const App = () => {
-  const queryClient = new QueryClient();
-
   return (
-    <QueryClientProvider client={queryClient}>
+    <div>
       <Toaster />
       <Router>
         <Header />
@@ -26,11 +23,11 @@ const App = () => {
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/products/:slug" element={<SingleProductPage />} />
+          <Route path="/login" element={<LoginToProceed />} />
         </Routes>
         <Footer />
       </Router>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    </div>
   );
 };
 

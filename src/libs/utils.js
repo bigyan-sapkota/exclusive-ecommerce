@@ -1,3 +1,5 @@
+import { AxiosError } from "axios";
+
 export const uploadToImageBB = async (image) => {
   if (!image) return null;
 
@@ -23,4 +25,14 @@ export const uploadToImageBB = async (image) => {
   } catch (error) {
     throw new Error(error);
   }
+};
+
+export const extractErrorMessage = (error) => {
+  if (typeof error === "string") return error;
+  if (error instanceof AxiosError) {
+    return error.response?.data.message || error.message;
+  } else if (error instanceof Error) {
+    return error.message;
+  }
+  return "Unknown error occurred!";
 };

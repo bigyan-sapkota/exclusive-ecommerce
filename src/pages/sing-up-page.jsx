@@ -1,19 +1,22 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import Button from "../components/button";
 import { uploadToImageBB } from "../libs/utils";
-import { RegisterUserSchema } from "../schemas/sign-in-sign-up.schema";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 import { useRegister } from "../mutations/use-register";
+import { RegisterUserSchema } from "../schemas/sign-in-sign-up.schema";
+import { useNavigate } from "react-router-dom";
+import { useProfile } from "../queries/use-profile";
 
 const SignUpPage = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
     useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const navigate = useNavigate();
+  const { data: user } = useProfile();
+
   const {
     register,
     handleSubmit,
@@ -25,6 +28,12 @@ const SignUpPage = () => {
 
   const { mutate } = useRegister();
 
+  useEffect(() => {
+    if (user?.name) {
+      navigate("/");
+    }
+  }, [user, navigate]);
+
   const onSubmit = async (data) => {
     try {
       setIsUploading(true);
@@ -34,11 +43,11 @@ const SignUpPage = () => {
         image = await uploadToImageBB(data.profileImage[0]);
       }
 
-      const { profileImage, confirmPassword, phone, ...rest } = data;
+      const { profileImage, confirmPassword, ...rest } = data;
       let submissionData = { ...rest };
 
       if (image) {
-        submissionData.image = image; // Corrected reassignment
+        submissionData.image = image;
       }
 
       mutate(submissionData);
