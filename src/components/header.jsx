@@ -1,11 +1,11 @@
-import { IoCartOutline } from "react-icons/io5";
-import { IoMenu } from "react-icons/io5";
-import { IoIosSearch } from "react-icons/io";
-import { RxCross2 } from "react-icons/rx";
 import { FaRegUser } from "react-icons/fa";
+import { IoIosSearch } from "react-icons/io";
+import { IoCartOutline, IoMenu } from "react-icons/io5";
+import { RxCross2 } from "react-icons/rx";
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Modal from "./modal";
 import { useProfile } from "../queries/use-profile";
 
 const navigationItems = [
@@ -26,11 +26,26 @@ const navigationItems = [
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const { data: user } = useProfile();
 
-  const { data } = useProfile();
-  console.log(data);
+  const profileClickHandler = () => {
+    setIsProfileModalOpen(true);
+  };
+
   return (
     <header className="relative">
+      <Modal
+        title="User Details"
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+      >
+        <div className="space-y-4">
+          <div>Name: {user?.name}</div>
+          <div>Email: {user?.email}</div>
+          {user?.phone && <div>Phone: {user?.phone}</div>}
+        </div>
+      </Modal>
       {/* top header */}
       <div className="hidden bg-dark py-2 lg:block">
         <p className="text-center text-light">
@@ -66,17 +81,17 @@ const Header = () => {
           <div className="relative">
             <FaRegUser
               size={22}
-              onClick={() => setIsUserMenuOpen((prev) => !prev)}
               className="custom-transition cursor-pointer hover:text-primary"
+              onClick={() => setIsUserMenuOpen(true)}
             />
             {isUserMenuOpen && (
-              <div className="absolute right-0 top-8 bg-dark p-2">
-                <Link
-                  to="/update-profile"
-                  className="custom-transition text-sm text-white hover:bg-white/50"
+              <div className="absolute right-0 top-8 flex w-24 flex-col items-center bg-black p-1">
+                <button
+                  className="custom-transition text-white hover:text-primary"
+                  onClick={profileClickHandler}
                 >
                   Profile
-                </Link>
+                </button>
               </div>
             )}
           </div>

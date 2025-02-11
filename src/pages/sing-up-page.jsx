@@ -15,6 +15,7 @@ const SignUpPage = () => {
     useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const navigate = useNavigate();
+
   const { data: user } = useProfile();
 
   const {
