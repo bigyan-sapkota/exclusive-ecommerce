@@ -1,5 +1,4 @@
-import { FaRegUser } from "react-icons/fa";
-import { IoIosSearch } from "react-icons/io";
+import { FaPhoneAlt, FaRegUser, FaUser, FaUserCheck } from "react-icons/fa";
 import { IoCartOutline, IoMenu } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 
@@ -7,30 +6,37 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Modal from "./modal";
 import { useProfile } from "../queries/use-profile";
-
-const navigationItems = [
-  {
-    id: 1,
-    text: "Home",
-    routeTo: "/",
-  },
-  {
-    id: 2,
-    text: "Products",
-    routeTo: "/products",
-  },
-  { id: 3, text: "Contact", routeTo: "/contact" },
-  { id: 4, text: "Sign up", routeTo: "/sign-up" },
-];
+import { IoMdMail } from "react-icons/io";
+import { useClickOutside } from "../hooks/use-click-outside";
+import Button from "./button";
+import UpdateProfileModal from "./modals/update-profile-modal";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isUpdateProfileModalOpen, setIsUpdateProfileModalOpen] =
+    useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const { data: user } = useProfile();
 
+  const closeMobileMeu = () => {
+    setIsMenuOpen(false);
+  };
+
+  const closeUserMenu = () => {
+    setIsUserMenuOpen(false);
+  };
+
+  const mobileMenuRef = useClickOutside(closeMobileMeu);
+  const userMenuRef = useClickOutside(closeUserMenu);
+
   const profileClickHandler = () => {
     setIsProfileModalOpen(true);
+  };
+
+  const updateProfileClickHandler = () => {
+    setIsProfileModalOpen(false);
+    setIsUpdateProfileModalOpen(true);
   };
 
   return (
@@ -41,11 +47,40 @@ const Header = () => {
         onClose={() => setIsProfileModalOpen(false)}
       >
         <div className="space-y-4">
-          <div>Name: {user?.name}</div>
-          <div>Email: {user?.email}</div>
-          {user?.phone && <div>Phone: {user?.phone}</div>}
+          <div className="flex items-center gap-2">
+            <FaUser /> Name: {user?.name}
+          </div>
+          <div className="flex items-center gap-2">
+            <IoMdMail />
+            Email: {user?.email}
+          </div>
+          {user?.phone && (
+            <div className="flex items-center gap-2">
+              <FaPhoneAlt />
+              Phone: +977-{user?.phone}
+            </div>
+          )}
+          <div className="flex items-center gap-2">
+            <FaUserCheck />
+            Role: <span className="capitalize">{user?.role}</span>
+          </div>
+        </div>
+
+        <div className="mt-4">
+          <Button
+            text="Update Profile"
+            buttonClickHandler={updateProfileClickHandler}
+          />
         </div>
       </Modal>
+
+      <UpdateProfileModal
+        title="Update Profile"
+        isOpen={isUpdateProfileModalOpen}
+        onClose={() => setIsUpdateProfileModalOpen(false)}
+        user={user}
+      />
+
       {/* top header */}
       <div className="hidden bg-dark py-2 lg:block">
         <p className="text-center text-light">
@@ -69,11 +104,6 @@ const Header = () => {
 
         {/* searchbar and cart */}
         <div className="flex items-center gap-6">
-          {/* search bar */}
-          <div className="hidden lg:block">
-            <SearchBar />
-          </div>
-
           {/* cart */}
           <IoCartOutline size={24} />
 
@@ -82,10 +112,13 @@ const Header = () => {
             <FaRegUser
               size={22}
               className="custom-transition cursor-pointer hover:text-primary"
-              onClick={() => setIsUserMenuOpen(true)}
+              onClick={() => setIsUserMenuOpen((prev) => !prev)}
             />
             {isUserMenuOpen && (
-              <div className="absolute right-0 top-8 flex w-24 flex-col items-center bg-black p-1">
+              <div
+                className="absolute right-0 top-8 flex w-24 flex-col items-center bg-black p-1"
+                ref={userMenuRef}
+              >
                 <button
                   className="custom-transition text-white hover:text-primary"
                   onClick={profileClickHandler}
@@ -108,12 +141,16 @@ const Header = () => {
 
       {/* navigation items for non lg */}
       {isMenuOpen && (
-        <div className="absolute bottom-0 left-0 top-12 z-50 h-fit w-full space-y-4 bg-primary py-10 text-light">
+        <div
+          className="absolute bottom-0 left-0 top-12 z-50 h-fit w-full space-y-4 bg-primary py-10 text-light"
+          ref={mobileMenuRef}
+        >
           {navigationItems.map((item, i) => (
             <Link
               key={i}
               to={item.routeTo}
               className="block text-center font-semibold"
+              onClick={closeMobileMeu}
             >
               {item.text}
             </Link>
@@ -126,15 +163,15 @@ const Header = () => {
 
 export default Header;
 
-const SearchBar = () => {
-  return (
-    <div className="flex items-center gap-8 rounded bg-secondary py-2 pl-5 pr-2">
-      <input
-        type="text"
-        placeholder="Search products..."
-        className="border-0 bg-transparent outline-none"
-      />
-      <IoIosSearch />
-    </div>
-  );
-};
+const navigationItems = [
+  {
+    id: 1,
+    text: "Home",
+    routeTo: "/",
+  },
+  {
+    id: 2,
+    text: "Products",
+    routeTo: "/products",
+  },
+];

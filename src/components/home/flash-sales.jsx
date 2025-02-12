@@ -1,16 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-import { products } from "../../libs/consts";
 import BoxText from "../box-text";
 import ProductCard from "../product-card";
 
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useProduct } from "../../queries/use-product";
 
 const endTime = new Date("2025-02-29T15:59:59").getTime();
 
 const FlashSales = () => {
   const [timeLeft, setTimeLeft] = useState(0);
+  const { data: products } = useProduct();
 
   //  useEffect hook le function ra dependency array linxa
   useEffect(() => {
@@ -76,7 +77,7 @@ const FlashSales = () => {
         className="mt-8"
         spaceBetween={30}
       >
-        {products.map((item, i) => (
+        {products?.map((item, i) => (
           <SwiperSlide key={i}>
             <ProductCard product={item} />
           </SwiperSlide>
