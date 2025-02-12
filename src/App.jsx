@@ -10,16 +10,20 @@ import SingleProductPage from "./pages/single-product-page";
 
 import { Toaster } from "sonner";
 import LoginToProceed from "./pages/login-to-proceed";
+import SignInPage from "./pages/sign-in-page";
+import ScrollToTop from "./components/scroll-to-top";
 
 const App = () => {
   return (
     <div>
+      <ScrollToTop />
       <Toaster />
       <Router>
         <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
+          <Route path="/sign-in" element={<SignInPage />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/products/:slug" element={<SingleProductPage />} />

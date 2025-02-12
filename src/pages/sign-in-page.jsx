@@ -3,10 +3,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import Button from "../components/button";
-import { schema } from "../schemas/sign-in-sign-up.schema";
+import { LoginUserSchema } from "../schemas/sign-in-sign-up.schema";
+import { useLogin } from "../mutations/use-login";
 
 const SignInPage = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const { mutate: loginUser } = useLogin();
 
   const {
     register,
@@ -14,12 +16,12 @@ const SignInPage = () => {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(LoginUserSchema),
   });
 
   const onSubmit = async (data) => {
     try {
-      console.log(data);
+      loginUser(data);
       reset();
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -42,18 +44,6 @@ const SignInPage = () => {
         >
           <div>
             <input
-              type="text"
-              placeholder="Your Name..."
-              className="w-full border-0 border-b border-b-gray-500 pb-1 outline-none"
-              {...register("name")}
-            />
-            {errors.name && (
-              <p className="text-sm text-red-500">{errors.name.message}</p>
-            )}
-          </div>
-
-          <div>
-            <input
               type="email"
               placeholder="Your Email..."
               className="w-full border-0 border-b border-b-gray-500 pb-1 outline-none"
@@ -61,18 +51,6 @@ const SignInPage = () => {
             />
             {errors.email && (
               <p className="text-sm text-red-500">{errors.email.message}</p>
-            )}
-          </div>
-
-          <div>
-            <input
-              type="tel"
-              placeholder="Phone Number (10 digits)"
-              className="w-full border-0 border-b border-b-gray-500 pb-1 outline-none"
-              {...register("phone")}
-            />
-            {errors.phone && (
-              <p className="text-sm text-red-500">{errors.phone.message}</p>
             )}
           </div>
 

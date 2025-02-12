@@ -1,14 +1,13 @@
-import { FaPhoneAlt, FaRegUser, FaUser, FaUserCheck } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
 import { IoCartOutline, IoMenu } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Modal from "./modal";
-import { useProfile } from "../queries/use-profile";
-import { IoMdMail } from "react-icons/io";
 import { useClickOutside } from "../hooks/use-click-outside";
-import Button from "./button";
+import { navigationItems } from "../libs/consts";
+import { useProfile } from "../queries/use-profile";
+import ProfileModal from "./modals/profile-modal";
 import UpdateProfileModal from "./modals/update-profile-modal";
 
 const Header = () => {
@@ -17,6 +16,7 @@ const Header = () => {
   const [isUpdateProfileModalOpen, setIsUpdateProfileModalOpen] =
     useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+
   const { data: user } = useProfile();
 
   const closeMobileMeu = () => {
@@ -41,38 +41,12 @@ const Header = () => {
 
   return (
     <header className="relative">
-      <Modal
-        title="User Details"
-        isOpen={isProfileModalOpen}
+      <ProfileModal
+        isProfileModalOpen={isProfileModalOpen}
+        user={user}
         onClose={() => setIsProfileModalOpen(false)}
-      >
-        <div className="space-y-4">
-          <div className="flex items-center gap-2">
-            <FaUser /> Name: {user?.name}
-          </div>
-          <div className="flex items-center gap-2">
-            <IoMdMail />
-            Email: {user?.email}
-          </div>
-          {user?.phone && (
-            <div className="flex items-center gap-2">
-              <FaPhoneAlt />
-              Phone: +977-{user?.phone}
-            </div>
-          )}
-          <div className="flex items-center gap-2">
-            <FaUserCheck />
-            Role: <span className="capitalize">{user?.role}</span>
-          </div>
-        </div>
-
-        <div className="mt-4">
-          <Button
-            text="Update Profile"
-            buttonClickHandler={updateProfileClickHandler}
-          />
-        </div>
-      </Modal>
+        updateProfileClickHandler={updateProfileClickHandler}
+      />
 
       <UpdateProfileModal
         title="Update Profile"
@@ -108,26 +82,34 @@ const Header = () => {
           <IoCartOutline size={24} />
 
           {/* user */}
-          <div className="relative">
-            <FaRegUser
-              size={22}
-              className="custom-transition cursor-pointer hover:text-primary"
-              onClick={() => setIsUserMenuOpen((prev) => !prev)}
-            />
-            {isUserMenuOpen && (
-              <div
-                className="absolute right-0 top-8 flex w-24 flex-col items-center bg-black p-1"
-                ref={userMenuRef}
-              >
-                <button
-                  className="custom-transition text-white hover:text-primary"
-                  onClick={profileClickHandler}
+          {user?.name ? (
+            <div className="relative">
+              <FaRegUser
+                size={22}
+                className="custom-transition cursor-pointer hover:text-primary"
+                onClick={() => setIsUserMenuOpen((prev) => !prev)}
+              />
+              {isUserMenuOpen && (
+                <div
+                  className="absolute right-0 top-8 flex w-24 flex-col items-center bg-black p-1"
+                  ref={userMenuRef}
                 >
-                  Profile
-                </button>
-              </div>
-            )}
-          </div>
+                  <button
+                    className="custom-transition text-white hover:text-primary"
+                    onClick={profileClickHandler}
+                  >
+                    Profile
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link to="/sign-in">
+              <button className="custom-transition border-2 border-black bg-black px-4 py-1 font-medium text-white hover:bg-white hover:text-black">
+                Sign In
+              </button>
+            </Link>
+          )}
 
           {/* hamburger for large screen */}
           <button
@@ -162,16 +144,3 @@ const Header = () => {
 };
 
 export default Header;
-
-const navigationItems = [
-  {
-    id: 1,
-    text: "Home",
-    routeTo: "/",
-  },
-  {
-    id: 2,
-    text: "Products",
-    routeTo: "/products",
-  },
-];

@@ -3,15 +3,18 @@ import axios from "axios";
 import { toast } from "sonner";
 import { backendUrl } from "../libs/consts";
 import { extractErrorMessage } from "../libs/utils";
+import { queryClient } from "../providers/query-provider";
+import { profileKey } from "../queries/use-profile";
 
 export const useUpdateProfile = () => {
   return useMutation({
     mutationKey: ["update-user"],
     mutationFn: (data) => updateProfile(data),
 
-    onSuccess() {
+    onSuccess(data) {
       toast.dismiss();
       toast.success(`Profile Updated Successfully`);
+      queryClient.setQueryData(profileKey, data);
     },
 
     onError(err) {

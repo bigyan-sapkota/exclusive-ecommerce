@@ -13,7 +13,9 @@ export const useProfile = () => {
 
 export const fetchProfile = async () => {
   try {
-    const response = await apiClient.get("/api/users/profile");
+    const response = await apiClient.get("/api/users/profile", {
+      withCredentials: true,
+    });
     return response.data.user;
   } catch (error) {
     throw new Error(extractErrorMessage(error));

@@ -1,5 +1,18 @@
 export const backendUrl = "https://online-grocery-server.vercel.app";
 
+export const navigationItems = [
+  {
+    id: 1,
+    text: "Home",
+    routeTo: "/",
+  },
+  {
+    id: 2,
+    text: "Products",
+    routeTo: "/products",
+  },
+];
+
 export const products = [
   {
     id: 1,
